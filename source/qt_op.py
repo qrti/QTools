@@ -1,4 +1,7 @@
 import bpy
+import bmesh
+from mathutils import geometry
+from bpy import context
 from bpy.types import Operator
 
 def add_vertex_to_intersection(self, context): pass
@@ -54,6 +57,8 @@ def add_vertex_to_intersection(self, context):
             bm.edges.new((e.verts[1], vn))
             bm.edges.remove(e)
 
+        bmesh.update_edit_mesh(me)
+
     elif mytool.keepFaces_bool:
         fac = (iv - v1).length / (v2 - v1).length
         bmesh.utils.edge_split(edges[0], edges[0].verts[0], fac)
@@ -64,7 +69,7 @@ def add_vertex_to_intersection(self, context):
         bm.verts.ensure_lookup_table()
         bmesh.ops.pointmerge(bm, verts=[bm.verts[-1], bm.verts[-2]], merge_co=iv)
 
-    bmesh.update_edit_mesh(me)
+        bmesh.update_edit_mesh(me)
 
     if mytool.setCursor_bool:
         context.scene.cursor.location = iv
