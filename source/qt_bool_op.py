@@ -1,60 +1,51 @@
 import bpy
 from bpy.props import *
-from bpy.types import (Panel,
-                       Operator,
-                       AddonPreferences,
-                       PropertyGroup,
-                       )
+from bpy.types import PropertyGroup
 
-def delFacesFunc(self, context):
+def delFaces(self, context):
     mytool = context.scene.my_tool
 
-    if(mytool.delFaces_bool == True):   
-        mytool.keepFaces_bool = False
+    if mytool.delFaces:
+        mytool.keepFaces = False
 
     return
 
-def keepFacesFunc(self, context):
+def keepFaces(self, context):
     mytool = context.scene.my_tool
 
-    if(mytool.keepFaces_bool == True):   
-        mytool.delFaces_bool = False
+    if mytool.keepFaces:
+        mytool.delFaces = False
 
     return
 
 class QT_settings(PropertyGroup):
-    delFaces_bool = BoolProperty(
+    delFaces: BoolProperty(
         name = "Delete Faces",
         description = "Deletes adjacent faces\n(for manual restauration)",
-        update = delFacesFunc,
-        default = True
-        )
+        update = delFaces,
+        default = True)
 
-    keepFaces_bool = BoolProperty(
+    keepFaces: BoolProperty(
         name = "Keep Faces",
         description = "Adds vertices to adjacent faces",
-        update = keepFacesFunc,
-        default = False
-        )
+        update = keepFaces,
+        default = False)
 
-    setCursor_bool = BoolProperty(
+    setCursor: BoolProperty(
         name = "Set Cursor",
         description = "Sets 3D Cursor to intersection",
-        default = False
-        )
+        default = False)
 
-#     my_int = IntProperty(
+#     my_int: IntProperty(
 #         name = "Set a value",
 #         description="A integer property",
 #         default = 23,
 #         min = 10,
-#         max = 100
-#         )
+#         max = 100)
 
-#     my_float = FloatProperty(
+#     my_float: FloatProperty(
 #         name = "Set a value",
 #         description = "A float property",
 #         default = 23.7,
 #         min = 0.01,
-#         max = 30.0
-#         )
+#         max = 30.0)

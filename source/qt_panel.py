@@ -13,13 +13,13 @@ class QT_SectEdges_PT_Panel(Panel):
         mytool = context.scene.my_tool
 
         row = layout.row()
-        row.prop(mytool, 'delFaces_bool')
+        row.prop(mytool, 'delFaces')
 
         row = layout.row()
-        row.prop(mytool, 'keepFaces_bool')
+        row.prop(mytool, 'keepFaces')
 
         row = layout.row()
-        row.prop(mytool, 'setCursor_bool')
+        row.prop(mytool, 'setCursor')
 
         row = layout.row()
         row.operator('view3d.sect_edges', text="Intersect Edges")
