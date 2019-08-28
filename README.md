@@ -2,13 +2,13 @@
 
 ![Image](images/screen.png)
 
-### **Functions**
+## **Functions**
 
-#### Intersect Edges
+### **Intersect Edges**
 Two selected edges are subdivided at their intersection and linked by a common vertex there  
 (Edit-Mode)
 
-Options
+#### Options
 - Delete Faces  
   adjacent faces of the edges are deleted for manually restoration  
   this might prevent faces with too much vertices
@@ -19,18 +19,41 @@ Options
 
 Delete and Keep Faces options mutually exclude each other
 
-#### Ground Objects
+#### The following infos my be issued
+- Works in edit mode only
+- Select exactly two edges
+- Edges are not independent  
+  edges share or have vertices on the same position  
+  no changes are made
+- Edges do not intersect  
+  edges are running parallel  
+
+#### The following warning may be issued
+- Intersection not on edges  
+  an intersection is found and used but  
+  the intersection is not located on at least one edge  
+  edges are seen as infinite lines, so the intersection may lay outside edge boundaries  
+  if no 'physical' intersection is found the mid point of the shortest line between the edges is taken
+
+### **Ground Objects**
 Drops selected objects to ground Z  
 (Object- and Edit-Mode)
 
-#### Remarks
+The following info my be issued
+- No object(s) selected
+
+Grounding objects in edit-mode may not work in some cases
+
+--- 
+
+### **Remarks**
 \- Press N-key or check View/Sidebar in Blender to show QTools in sidebar  
 \- Developed for Blender 2.80 with VSCode + Blender Plugin + Python 3
 
-#### Versions
+### **Versions**
 \- 0.0.1 initial
 
 ---
 
-#### contact  
+#### contact
 [qrt@qland.de](mailto:qrt@qland.de)
