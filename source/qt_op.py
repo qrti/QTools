@@ -60,9 +60,7 @@ def sectEdges(self, context):
         self.report({"WARNING"}, "Intersection not on edges")
 
     if mytool.delFaces:
-        bm.verts.new(iv)
-        bm.verts.ensure_lookup_table()
-        vn = bm.verts[-1]
+        vn = bm.verts.new(iv)
 
         for e in edges:
             bm.edges.new((e.verts[0], vn))
@@ -73,13 +71,12 @@ def sectEdges(self, context):
 
     elif mytool.keepFaces:
         fac = (iv - v1).length / (v2 - v1).length
-        bmesh.utils.edge_split(edges[0], edges[0].verts[0], fac)
+        ev1 = bmesh.utils.edge_split(edges[0], edges[0].verts[0], fac)
 
         fac = (iv - v3).length / (v4 - v3).length
-        bmesh.utils.edge_split(edges[1], edges[1].verts[0], fac)
+        ev2 = bmesh.utils.edge_split(edges[1], edges[1].verts[0], fac)
 
-        bm.verts.ensure_lookup_table()       
-        bmesh.ops.pointmerge(bm, verts=([bm.verts[-1], bm.verts[-2]]), merge_co=iv)
+        bmesh.ops.pointmerge(bm, verts=(ev1[1], ev2[1]), merge_co=iv)
 
         bmesh.update_edit_mesh(me)
 
