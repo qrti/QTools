@@ -14,7 +14,7 @@ Two selected edges are subdivided at their intersection and linked by a common v
   this prevents non-planar faces
 - Keep Faces  
   adjacent faces of the edges are kept, they get additional vertices  
-  resulting faces might be non-planar
+  resulting faces might be non-planar (see warning)
 - Set Cursor  
   sets the cursor to the intersection point
 
@@ -35,6 +35,7 @@ Delete and Keep Faces options mutually exclude each other
   \- the intersection is not located on at least one edge  
   \- edges are seen as infinite lines, so the intersection may lay outside edge boundaries  
   \- if no 'physical' intersection is found the mid point of the shortest line between the edges is taken  
+  \- 'Keep Faces' option might have produced non-planar faces  
   \- the results of the operation might not be useful
 
 ### **Ground Objects**
@@ -47,7 +48,7 @@ The following info may be issued
 Grounding objects in edit-mode may not work in some cases 
 
 ### **Origin to Selection**
-An objects origin is set to the mid point of the selected vertices, edges or faces
+An objects origin is set to the mid point of the selected vertices, edges or faces  
 (Edit-Mode)
 
 The following info may be issued  
