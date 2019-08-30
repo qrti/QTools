@@ -25,9 +25,10 @@ Delete and Keep Faces options mutually exclude each other
 - Select exactly two edges
 - Edges are not independent  
   edges share or have vertices on the same position  
-  no changes are made
 - Edges do not intersect  
   edges are running parallel  
+
+no changes are made
 
 #### The following warning may be issued
 - Intersection not on edges  
