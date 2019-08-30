@@ -33,6 +33,17 @@ class QT_GroundObjects_PT_Panel(Panel):
 
     def draw(self, context):
         layout = self.layout
-
         row = layout.row()
         row.operator('view3d.ground_objects', text="Ground Objects")
+
+class QT_OriginToSel_PT_Panel(Panel):
+    bl_idname = "QT_ORIGIN_TO_SEL_PT_Panel"
+    bl_label = "Origin to Selection"
+    bl_category = "QTools"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        row.operator('view3d.origin_to_sel', text="Origin to Selection")

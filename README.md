@@ -20,7 +20,7 @@ Two selected edges are subdivided at their intersection and linked by a common v
 
 Delete and Keep Faces options mutually exclude each other
 
-#### The following infos my be issued
+#### The following infos may be issued
 - Works in edit mode only
 - Select exactly two edges
 - Edges are not independent  
@@ -41,16 +41,26 @@ Delete and Keep Faces options mutually exclude each other
 Drops selected objects to ground Z  
 (Object- and Edit-Mode)
 
-The following info my be issued
+The following info may be issued
 - No object(s) selected
 
 Grounding objects in edit-mode may not work in some cases 
 
-### **Remarks**
+### **Origin to Selection**
+An objects origin is set to the mid point of the selected vertices, edges or faces
+(Edit-Mode)
+
+The following info may be issued  
+- Works in edit mode only
+- Nothing selected
+
+The cursor is set to this point also
+
+## **Remarks**
 \- Press N-key or check View/Sidebar in Blender to show QTools in sidebar  
 \- Developed for Blender 2.80 with VSCode + Blender Plugin + Python 3
 
-### **Versions**
+## **Versions**
 \- 0.0.1 initial
 
 ---

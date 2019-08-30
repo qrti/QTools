@@ -5,6 +5,7 @@ from mathutils import geometry
 
 def sectEdges(self, context): pass
 def groundObjects(self, context): pass
+def originToSel(self, context): pass
 def pointOnEdge(point, edge): pass
 
 class QT_SectEdges_Operator(Operator):
@@ -23,6 +24,15 @@ class QT_GroundObjects_Operator(Operator):
 
     def execute(self, context):
         groundObjects(self, context)
+        return {'FINISHED'}
+
+class QT_OriginToSel_Operator(Operator):
+    bl_idname = "view3d.origin_to_sel"
+    bl_label = "Origin to Selection"
+    bl_description = "Sets object origin to current selection"
+
+    def execute(self, context):
+        originToSel(self, context)
         return {'FINISHED'}
 
 def sectEdges(self, context):
@@ -92,6 +102,29 @@ def groundObjects(self, context):
         mx = obj.matrix_world
         minz = min((mx @ v.co).z for v in obj.data.vertices)
         mx.translation.z -= minz
+
+def originToSel(self, context):
+    obj = bpy.context.object
+
+    if obj.mode != 'EDIT':
+        self.report({"INFO"}, "Works in edit mode only")
+        return
+
+    me = obj.data
+    bm = bmesh.from_edit_mesh(me)
+    
+    if not True in [v.select for v in bm.verts]:
+        self.report({"INFO"}, "Nothing selected")
+        return   
+
+    # cp = bpy.context.scene.cursor.location        location is stored but
+
+    bpy.ops.view3d.snap_cursor_to_selected()
+    bpy.ops.object.mode_set()
+    bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
+    bpy.ops.object.mode_set(mode='EDIT')
+
+    # bpy.context.scene.cursor.location = cp        restauration does not work
 
 def pointOnEdge(p, v1, v2): 
     minx = min(v1[0], v2[0])
