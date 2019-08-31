@@ -16,7 +16,7 @@ bl_info = {
     "author" : "qrti",
     "description" : "QTools",
     "blender" : (2, 80, 0),
-    "version" : (0, 0, 1),
+    "version" : (0, 0, 2),
     "location" : "View3D",
     "warning" : "",
     "category" : "Generic"
@@ -25,8 +25,8 @@ bl_info = {
 import bpy
 from bpy.props import *
 
-from . qt_panel   import QT_SectEdges_PT_Panel, QT_GroundObjects_PT_Panel, QT_OriginToSel_PT_Panel
-from . qt_op      import QT_SectEdges_Operator, QT_GroundObjects_Operator, QT_OriginToSel_Operator
+from . qt_panel   import QT_SectEdges_PT_Panel, QT_Utilities_PT_Panel
+from . qt_op      import QT_SectEdges_Operator, QT_OriginToSel_Operator, QT_GroundObjects_Operator
 from . qt_bool_op import QT_settings
 
 # classes = (QT_IntersectEdges_Operator, QT_IntersectEdges_PT_Panel, QT_settings)
@@ -34,20 +34,18 @@ from . qt_bool_op import QT_settings
 
 def register():
     bpy.utils.register_class(QT_SectEdges_PT_Panel)
-    bpy.utils.register_class(QT_GroundObjects_PT_Panel)
-    bpy.utils.register_class(QT_OriginToSel_PT_Panel)
+    bpy.utils.register_class(QT_Utilities_PT_Panel)
     bpy.utils.register_class(QT_SectEdges_Operator)
-    bpy.utils.register_class(QT_GroundObjects_Operator)
     bpy.utils.register_class(QT_OriginToSel_Operator)
+    bpy.utils.register_class(QT_GroundObjects_Operator)
     bpy.utils.register_class(QT_settings)
     bpy.types.Scene.my_tool = PointerProperty(type=QT_settings)
 
 def unregister():
     bpy.utils.unregister_class(QT_SectEdges_PT_Panel)
-    bpy.utils.unregister_class(QT_GroundObjects_PT_Panel)
-    bpy.utils.unregister_class(QT_OriginToSel_PT_Panel)
+    bpy.utils.unregister_class(QT_Utilities_PT_Panel)
     bpy.utils.unregister_class(QT_SectEdges_Operator)
-    bpy.utils.unregister_class(QT_GroundObjects_Operator)
     bpy.utils.unregister_class(QT_OriginToSel_Operator)
+    bpy.utils.unregister_class(QT_GroundObjects_Operator)
     bpy.utils.unregister_class(QT_settings)
     del bpy.types.Scene.my_tool

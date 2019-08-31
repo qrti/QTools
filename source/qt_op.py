@@ -4,8 +4,8 @@ from bpy.types import Operator
 from mathutils import geometry
 
 def sectEdges(self, context): pass
-def groundObjects(self, context): pass
 def originToSel(self, context): pass
+def groundObjects(self, context): pass
 def pointOnEdge(point, edge): pass
 
 class QT_SectEdges_Operator(Operator):
@@ -20,7 +20,7 @@ class QT_SectEdges_Operator(Operator):
 class QT_GroundObjects_Operator(Operator):
     bl_idname = "view3d.ground_objects"
     bl_label = "Ground Objects"
-    bl_description = "Grounds objects to zero Z"
+    bl_description = "Grounds objects to ground Z"
 
     def execute(self, context):
         groundObjects(self, context)
@@ -87,21 +87,14 @@ def sectEdges(self, context):
         ev2 = bmesh.utils.edge_split(edges[1], edges[1].verts[0], fac)
 
         bmesh.ops.pointmerge(bm, verts=(ev1[1], ev2[1]), merge_co=iv)
+        bmesh.update_edit_mesh(me)
 
+    elif mytool.addVertex:
+        bm.verts.new(iv)
         bmesh.update_edit_mesh(me)
 
     if mytool.setCursor:
         context.scene.cursor.location = obj.matrix_world @ iv
-    
-def groundObjects(self, context):
-    if not len(context.selected_objects):
-        self.report({"INFO"}, "No object(s) selected")
-        return
-
-    for obj in context.selected_objects:
-        mx = obj.matrix_world
-        minz = min((mx @ v.co).z for v in obj.data.vertices)
-        mx.translation.z -= minz
 
 def originToSel(self, context):
     obj = bpy.context.object
@@ -124,7 +117,17 @@ def originToSel(self, context):
     bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
     bpy.ops.object.mode_set(mode='EDIT')
 
-    # bpy.context.scene.cursor.location = cp        restauration does not work
+    # bpy.context.scene.cursor.location = cp        restoration does not work
+
+def groundObjects(self, context):
+    if not len(context.selected_objects):
+        self.report({"INFO"}, "No object(s) selected")
+        return
+
+    for obj in context.selected_objects:
+        mx = obj.matrix_world
+        minz = min((mx @ v.co).z for v in obj.data.vertices)
+        mx.translation.z -= minz
 
 def pointOnEdge(p, v1, v2): 
     minx = min(v1[0], v2[0])

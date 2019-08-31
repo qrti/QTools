@@ -7,29 +7,40 @@ def delFaces(self, context):
 
     if mytool.delFaces:
         mytool.keepFaces = False
-
-    return
+        mytool.addVertex = False
 
 def keepFaces(self, context):
     mytool = context.scene.my_tool
 
     if mytool.keepFaces:
         mytool.delFaces = False
+        mytool.addVertex = False
 
-    return
+def addVertex(self, context):
+    mytool = context.scene.my_tool
+
+    if mytool.addVertex:
+        mytool.delFaces = False
+        mytool.keepFaces = False
 
 class QT_settings(PropertyGroup):
     delFaces: BoolProperty(
         name = "Delete Faces",
-        description = "Deletes adjacent faces\n(for manual restauration)",
+        description = "Subdivide edges and delete adjacent faces\n(for manual restoration to avoid non-planar faces)",
         update = delFaces,
         default = True)
 
     keepFaces: BoolProperty(
         name = "Keep Faces",
-        description = "Adds vertices to adjacent faces",
+        description = "Subdivide edges and keep adjacent faces\n(resulting faces might be non-planar)",
         update = keepFaces,
         default = False)
+
+    addVertex: BoolProperty(
+        name = "Add Vertex",
+        description = "Add a vertex only",
+        update = addVertex,
+        default = False)        
 
     setCursor: BoolProperty(
         name = "Set Cursor",
